@@ -32,11 +32,7 @@ class BaseModel(object):
 
     self.global_step = tf.Variable(0, name='global_step', trainable=False)
     self._setup_prediction()
-<<<<<<< HEAD
     self.saver = tf.train.Saver(tf.global_variables(),max_to_keep=100)
-=======
-    self.saver = tf.train.Saver(tf.all_variables(),max_to_keep=100)
->>>>>>> cc97cd94a4e720f5b877dfefb44fa8ccb2fd3458
 
   @abc.abstractmethod
   def _setup_prediction(self):
@@ -44,7 +40,6 @@ class BaseModel(object):
     pass
 
   @abc.abstractmethod
-<<<<<<< HEAD
  # def _setup_loss(self):
  #   """Loss function to minimize."""
  #   pass
@@ -94,17 +89,6 @@ class BaseModel(object):
     optim = tf.train.AdamOptimizer(learning_rate).minimize(
         self.loss, name='optimizer', global_step=self.global_step)
     self.optimizer = optim
-=======
-  def _setup_loss(self):
-    """Loss function to minimize."""
-    pass
-
-  @abc.abstractmethod
-  def _setup_optimizer(self, learning_rate):
-    """Optimizer."""
-    pass
-
->>>>>>> cc97cd94a4e720f5b877dfefb44fa8ccb2fd3458
   @abc.abstractmethod
   def _tofetch(self):
     """Tensors to run/fetch at each training step.
@@ -123,16 +107,11 @@ class BaseModel(object):
     tofetch = self._tofetch()
     tofetch['step'] = self.global_step
     tofetch['summaries'] = self.merged_summaries
-<<<<<<< HEAD
     #print tofetch['step'],tofetch['summaries']
     data = sess.run(tofetch, options=run_options, run_metadata=run_metadata)
    # print '73Starting optimization.',data
     data['duration'] = time.time()-start_time
     #print '75Starting optimization.'
-=======
-    data = sess.run(tofetch, options=run_options, run_metadata=run_metadata)
-    data['duration'] = time.time()-start_time
->>>>>>> cc97cd94a4e720f5b877dfefb44fa8ccb2fd3458
     return data
 
   def _test_step(self, sess, start_time, run_options=None, run_metadata=None):
@@ -145,10 +124,7 @@ class BaseModel(object):
     tofetch = self._tofetch()
     tofetch['step'] = self.global_step
     tofetch['is_correct'] = self.is_correct[0]
-<<<<<<< HEAD
     #print(88,tofetch['step'] ,tofetch['is_correct'])
-=======
->>>>>>> cc97cd94a4e720f5b877dfefb44fa8ccb2fd3458
     data = sess.run(tofetch, options=run_options, run_metadata=run_metadata)
     data['duration'] = time.time()-start_time
     return data
@@ -235,21 +211,12 @@ class BaseModel(object):
     """
     lr = tf.Variable(learning_rate, name='learning_rate',
         trainable=False,
-<<<<<<< HEAD
         collections=[tf.GraphKeys.GLOBAL_VARIABLES])
     self.summaries.append(tf.summary.scalar('learning_rate', lr))
-=======
-        collections=[tf.GraphKeys.VARIABLES])
-    self.summaries.append(tf.scalar_summary('learning_rate', lr))
->>>>>>> cc97cd94a4e720f5b877dfefb44fa8ccb2fd3458
 
     # Optimizer
     self._setup_loss()
     self._setup_optimizer(lr)
-<<<<<<< HEAD
-=======
-
->>>>>>> cc97cd94a4e720f5b877dfefb44fa8ccb2fd3458
     # Profiling
     if profiling:
       run_options = tf.RunOptions(trace_level=tf.RunOptions.FULL_TRACE)
@@ -259,7 +226,6 @@ class BaseModel(object):
       run_metadata = None
 
     # Summaries
-<<<<<<< HEAD
     self.merged_summaries = tf.summary.merge(self.summaries)
     print(self.merged_summaries)
 
@@ -269,16 +235,6 @@ class BaseModel(object):
       print 'Initializing all variables.'
       tf.local_variables_initializer().run()
       tf.global_variables_initializer().run()
-=======
-    self.merged_summaries = tf.merge_summary(self.summaries)
-
-    with tf.Session() as sess:
-      self.summary_writer = tf.train.SummaryWriter(self.checkpoint_dir, sess.graph)
-
-      print 'Initializing all variables.'
-      tf.initialize_local_variables().run()
-      tf.initialize_all_variables().run()
->>>>>>> cc97cd94a4e720f5b877dfefb44fa8ccb2fd3458
       if resume:
         self.load(sess)
 
@@ -290,17 +246,11 @@ class BaseModel(object):
       start_time = time.time()
       try:
         while not coord.should_stop():  # Training loop
-<<<<<<< HEAD
           #print '205Starting optimization.'
           step_data = self._train_step(sess, start_time, run_options, run_metadata)
           
           step = step_data['step']
           #print step,sess.run(lr)
-=======
-          step_data = self._train_step(sess, start_time, run_options, run_metadata)
-          step = step_data['step']
-
->>>>>>> cc97cd94a4e720f5b877dfefb44fa8ccb2fd3458
           if step > 0 and step % summary_step == 0:
             if profiling:
               self.summary_writer.add_run_metadata(run_metadata, 'step%d' % step)
