@@ -35,7 +35,7 @@ All CNN identified slices with prob>0.1,normalized ampitude
 * Install dependencies: `pip install -r requirements.txt.b`
 * if it doesn't work,try: `pip install -r requirements.txt`
 * Add directory to python path: `./setpath.sh`
-
+* export PYTHONPATH=~/ConvNetQuake
 ## Data of the continous waveform
 
 Download the [data](https://pan.baidu.com/s/1N_gwRC95qwQHnfNX94cdgQ) (roughly 110 Mb) and symlink to data ln -s data Downloads/data
