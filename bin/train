@@ -55,12 +55,14 @@ def main(args):
     }
 
   samples = {
-    "data": tf.concat(0,[pos_samples["data"],neg_samples["data"]]),
-    "cluster_id" : tf.concat(0,[pos_samples["cluster_id"],neg_samples["cluster_id"]])
+    "data": tf.concat([pos_samples["data"],neg_samples["data"]],0),
+    "cluster_id" : tf.concat([pos_samples["cluster_id"],neg_samples["cluster_id"]],0)
     }
 
   # model
   model = models.get(args.model, samples,cfg, args.checkpoint_dir, is_training=True)
+
+ 
   # train loop
   model.train(
     args.learning_rate,
