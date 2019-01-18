@@ -32,10 +32,13 @@ All CNN identified slices with prob>0.1,normalized ampitude
 
 ## Installation
 * Download repository
+* Download anaconda or miniconda,then create a new environment:
+   1. conda create -n python2 python=2
+   2.	conda activate python2
+   3. conda install tensorflow=1.4
 * Install dependencies: `pip install -r requirements.txt.b`
-* if it doesn't work,try: `pip install -r requirements.txt`
 * Add directory to python path: `./setpath.sh`
-* export PYTHONPATH=~/ConvNetQuake
+
 ## Data of the continous waveform
 
 Download the [data](https://pan.baidu.com/s/1N_gwRC95qwQHnfNX94cdgQ) (roughly 110 Mb) and symlink to data ln -s data Downloads/data
@@ -68,7 +71,8 @@ For noises:
 
 ## Train
 
-./bin/train --dataset wenchuan_train_test --checkpoint_dir output/convnetquake --n_clusters 2
+tar xzvf train_30s_MXI.tar
+./bin/train --dataset train_30s_MXI --checkpoint_dir output/convnetquake --n_clusters 2
 
 
 ## Tensorboard for real-time monitor
@@ -85,7 +89,6 @@ The directory `trained_model` contains:
 ### From mseed
 
 ./bin/predict_from_stream.py --stream_path data --checkpoint_dir trained_model/ConvNetQuake  --n_clusters 2 --window_size 30 --window_step 31 --output predict_MXI_one_day --plot --save_sac
-
 
 It will generate a dir "predict_MXI_one_day",which contains:
  
