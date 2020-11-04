@@ -2,6 +2,8 @@
 Using ConvNetQuake to train model based on wenchuan aftershocks and automatically detect earthquakes in continuous waveform
 ============= 
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4243987.svg)](https://doi.org/10.5281/zenodo.4243987)
+
 We use ConvNetQuake to train our own model for events classification based on the wenchuan aftershocks and use it to classify earthquakes from one day continous waveform(2008-07-25) of one station (MXI).In this day there are about 43 "obvious" earthquakes and more than 170 "trival" earthquakes (see the image below).We use ConvNetQuake and STA/LTA to identify them automatically,both two methods can detect all the "obvious" earthquakes,but CNN win STA/lTA in detecting "trival" earthquakes,besides,CNN has less false recognition than STA/LTA.
 
 For  ConvNetQuake refer to:
